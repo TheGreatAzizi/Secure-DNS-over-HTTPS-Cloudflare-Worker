@@ -15,6 +15,15 @@ If you do not attach your own domain, the DNS endpoint will likely be inaccessib
 
 ---
 
+- ⚠ This project only encrypts DNS queries.  
+  Your public IP address does **not** change.  
+
+  If you use this DNS to access platforms like Twitter (X),  
+  the service may still detect your IP as being located in Iran,  
+  and your profile activity may show that you connected from Iran.
+
+---
+
 ## What This Project Does
 
 - Provides a `/dns-query` endpoint that forwards DNS queries securely to Cloudflare DNS.
