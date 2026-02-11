@@ -3,6 +3,8 @@
 A Cloudflare Worker that provides a **custom DNS over HTTPS (DoH) endpoint** along with a simple instructional web page.  
 It allows users to securely encrypt DNS queries using their own domain, improving privacy and helping bypass DNS-based filtering.
 
+Demo: https://dns.theazizi.ir | https://dns.theazizi.ir/dns-query
+
 ---
 
 ## ⚠ Important (For Users in Iran)
