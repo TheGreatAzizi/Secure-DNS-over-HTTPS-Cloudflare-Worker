@@ -7,6 +7,10 @@
 [![Security](https://img.shields.io/badge/Privacy-Zero_Logging-teal)](https://x.com/the_azzi)
 [![Interface](https://img.shields.io/badge/UI-English_Persian_Chinese-0ea5e9)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 
+[![English](https://img.shields.io/badge/Readme-English-blue)](./README.md)
+[![中文](https://img.shields.io/badge/Readme-中文-red)](./README-Zh.md)
+![Repository Views](https://komarev.com/ghpvc/?username=TheGreatAzizi&repo=Secure-DNS-over-HTTPS-Cloudflare-Worker&color=red)
+
 یک Cloudflare Worker که یک **اندپوینت اختصاصی و Enterprise-Grade برای DNS over HTTPS (DoH)** به همراه یک داشبورد مدرن و آموزشی ارائه می‌دهد. این پروژه به شما اجازه می‌دهد با استفاده از دامنه اختصاصی خودتان روی شبکه Edge کلادفلر، درخواست‌های DNS را رمزنگاری کنید، DNS Poisoning را دور بزنید و حریم خصوصی خود را بهبود دهید.
 
 **دمو:** [dns.theazizi.ir](https://dns.theazizi.ir) |  
