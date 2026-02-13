@@ -7,6 +7,10 @@
 [![Security](https://img.shields.io/badge/Privacy-Zero_Logging-teal)](https://x.com/the_azzi)
 [![Interface](https://img.shields.io/badge/UI-English_Persian_Chinese-0ea5e9)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 
+[![中文](https://img.shields.io/badge/Readme-中文-red)](./README-Zh.md)
+[![Farsi](https://img.shields.io/badge/Readme-Farsi-green)](./README-Fa.md)
+![Repository Views](https://komarev.com/ghpvc/?username=TheGreatAzizi&repo=Secure-DNS-over-HTTPS-Cloudflare-Worker&color=red)
+
 A Cloudflare Worker that provides an **enterprise-grade custom DNS over HTTPS (DoH) endpoint** along with a modern, instructional dashboard. It allows you to encrypt your DNS queries, bypass DNS poisoning, and improve privacy using your own custom domain on the Cloudflare Edge network.
 
 **Demo:** [dns.theazizi.ir](https://dns.theazizi.ir) | **Endpoint:** `https://dns.theazizi.ir/dns-query`
