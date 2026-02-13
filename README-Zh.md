@@ -7,6 +7,10 @@
 [![Security](https://img.shields.io/badge/Privacy-Zero_Logging-teal)](https://x.com/the_azzi)
 [![Interface](https://img.shields.io/badge/UI-English_Persian_Chinese-0ea5e9)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 
+[![English](https://img.shields.io/badge/Readme-English-blue)](./README.md)
+[![Farsi](https://img.shields.io/badge/Readme-Farsi-green)](./README-Fa.md)
+![Repository Views](https://komarev.com/ghpvc/?username=TheGreatAzizi&repo=Secure-DNS-over-HTTPS-Cloudflare-Worker&color=red)
+
 一个基于 Cloudflare Worker 的项目，提供**企业级自定义 DNS over HTTPS (DoH) 端点**以及现代化的教学仪表盘。它允许你在 Cloudflare 边缘网络上使用自己的自定义域名来加密 DNS 查询、绕过 DNS 污染并提升隐私性。
 
 **演示：** [dns.theazizi.ir](https://dns.theazizi.ir) | **端点：** `https://dns.theazizi.ir/dns-query`
