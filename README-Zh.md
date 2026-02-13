@@ -1,9 +1,9 @@
-# 🛡️ Secure DNS over HTTPS (DoH)
+# 🛡️ Secure DNS over HTTPS (DoH) V2.1
 
-### **基于 Cloudflare Workers 的最可靠并行竞速 DNS 解析器**
+### **基于 Cloudflare Worker 的全自动全球并行竞赛解析服务**
 
 [![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare_Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com)
-[![Architecture](https://img.shields.io/badge/Architecture-Parallel_Racing_v4.5-emerald)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
+[![Architecture](https://img.shields.io/badge/Architecture-Parallel_Racing_v6.0-emerald)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 [![Security](https://img.shields.io/badge/Privacy-Zero_Logging-teal)](https://x.com/the_azzi)
 [![Interface](https://img.shields.io/badge/UI-English_Persian_Chinese-0ea5e9)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 
@@ -11,105 +11,79 @@
 [![Farsi](https://img.shields.io/badge/Readme-Farsi-green)](./README-Fa.md)
 ![Repository Views](https://komarev.com/ghpvc/?username=TheGreatAzizi&repo=Secure-DNS-over-HTTPS-Cloudflare-Worker&color=red)
 
-一个基于 Cloudflare Worker 的项目，提供**企业级自定义 DNS over HTTPS (DoH) 端点**以及现代化的教学仪表盘。它允许你在 Cloudflare 边缘网络上使用自己的自定义域名来加密 DNS 查询、绕过 DNS 污染并提升隐私性。
+这是一个高性能的 Cloudflare Worker 解析器，通过独有的 **8 路径并行竞赛引擎 (8-Way Edge Racing)**，同时向全球 50 多个权威 DNS 节点发起请求，并瞬时返回最快且已验证的解析结果。它内置了交互式说明页面，旨在提升隐私、防止 DNS 投毒及绕过特定区域的域名限制。
 
-**演示：** [dns.theazizi.ir](https://dns.theazizi.ir) | **端点：** `https://dns.theazizi.ir/dns-query`
-
----
-
-## ⚠ 重要提示（特别是伊朗用户）
-
-### 1. Worker 子域名已被封锁
-Cloudflare 默认的 worker 域名（`*.workers.dev`）在伊朗境内被严格过滤。你**必须通过 Workers → Settings → Domains & Routes 将 Worker 绑定到你自己的自定义域名或子域名**（例如：`dns.yourdomain.com`）。请确保启用 **橙色云（已代理 / Proxied）**。
-
-### 2. 仅限 DNS —— 你的 IP 仍然公开
-本项目**仅加密 DNS 查询**。你的公网 IP 地址**不会改变**。  
-- 如果你使用此 DNS 访问类似 **Twitter (X)** 之类的平台，服务仍可能检测到你的真实位置/IP。  
-- 社交媒体上的个人资料活动仍可能显示你是从本国（伊朗）连接。
-
-### 3. 绕过范围
-虽然本 Worker 可以绕过**基于 DNS 层的过滤**（占审查的大部分比例），但**可能无法**绕过：
-- **IP 级封锁**（当 IP 直接不可达时）。
-- **SNI 过滤**（基于 TLS 握手中的网站名称进行封锁）。
-- **深度包检测（DPI）**。
+**在线演示:** [dns.theazizi.ir](https://dns.theazizi.ir) | **配置地址:** `https://dns.theazizi.ir/dns-query`
 
 ---
 
-## ⚡ 本版本包含哪些功能？
+## ⚠ 重要声明（受限地区用户必读）
 
-- **🚀 8 轨并行竞速：** 每当你发送一个 DNS 查询，Worker 会同时联系 **8 个高级全球 DNS 提供商**（Google、Cloudflare、Quad9、AdGuard、Mullvad 等）。  
-- **🏆 最快响应胜出：** Worker 会将收到的第一个经过验证的响应返回给你，有效消除单个慢速或拥堵提供商带来的延迟。  
-- **🧠 自主健康评分：** 如果某个提供商被审查或变慢，系统会自动降低其评分，并实时提升健康节点。  
-- **💾 全球边缘缓存：** 常见域名（例如 Google、Spotify 或 CDN 资源）会缓存在 Cloudflare 内存银行中，提供**低于 10ms**的响应时间。
+### 1. 默认域名干扰
+Cloudflare 的默认分配域名 (`*.workers.dev`) 在部分受限地区可能已被防火墙干扰。您 **必须** 将此 Worker 绑定到您 **自定义域名**（如 `dns.yourdomain.com`）。请确保 Cloudflare DNS 面板中的 **小云朵 (Proxied)** 已开启。
+
+### 2. 不改变公网 IP
+该工具 **仅加密 DNS 查询过程**。它不会改变您的公网 IP 地址。访问 X (Twitter) 等社交平台时，服务器仍会检测到您的原始地理位置。如需全局隐身，请配合 VPN 或 Proxy 使用。
+
+### 3. 解析局限性
+该服务主要解决 DNS 污染问题。它本身无法绕过 IP 级别屏蔽、SNI 过滤或深度包检测 (DPI)。
 
 ---
 
-## 📋 本项目功能
+## 🚀 核心架构：v6.0 智能竞速引擎
 
-- 提供高度安全的 `/dns-query` 端点。  
-- 防止 **ISP 级监控** 和 **DNS 劫持**。  
-- 提供 **多语言 UI**（英语、波斯语、中文）以供全球用户使用。  
-- 包含 **原生 Apple 配置文件生成器**（iOS/macOS `.mobileconfig`）。  
-- 使用 **诱饵请求（Decoy Requests）** 和随机化请求头来规避流量指纹识别。
+常规 DoH 请求可能会因为单一点位拥塞而响应缓慢。本版本通过以下机制确保零延迟：
+- **8 路径并发:** 每一个 DNS 请求都会同步发送至全球 8 个当前得分最高的解析服务器（涵盖 Google, Cloudflare, Quad9, AdGuard 等）。
+- **最快响应胜出:** Worker 只采用第一个返回的合法解析包，从而将解析延迟降至极致（边缘节点处理时间通常小于 30ms）。
+- **节点自动评价:** 系统自动对服务器性能评分。若某个节点出现连接超时或污染，其权重将瞬间自动下降并退出优先解析列表。
+
+---
+
+## 📋 功能特点
+
+- **✅ 边缘缓存:** 热门网站记录（如 Google, Spotify 等）会存储在共享的 RAM 中，实现瞬时解析响应。
+- **✅ 多语言支持:** 内置英语、波斯语 (FA) 和简体中文 (ZH) 的图形化配置教程。
+- **✅ 请求频率保护:** 每个 IP 每分钟限制 250 次请求，有效防止暴力请求并确保系统长期稳定运行。
+- **✅ 隐匿通信:** 查询流量包裹在 **端口 443 (HTTPS)** 协议中，看起来与普通网页浏览完全一致，极难被精准拦截。
 
 ---
 
 ## 📖 如何部署
 
-### 1. 创建 Worker
-- 登录你的 Cloudflare 控制面板。  
-- 进入 **Workers & Pages** → **Create Service**。  
-- 粘贴 [worker.js](./worker.js) 代码并点击 **Deploy**。
-
-### 2. 绑定自定义域名（受限地区必需）
-- 在 Worker 设置中，进入 **Settings → Domains & Routes**。  
-- 添加一个自定义域名或子域名（例如：`doh.yourdomain.com`）。  
-- 确保 DNS 处于代理状态（**已启用橙色云**）。
+1. **部署 Worker:** 在 Cloudflare 面板新建 Worker，并粘贴项目中的 `worker.js` 代码。
+2. **绑定域名:** 在 Worker 的 `Settings -> Domains & Routes` 中，添加您的自定义二级域名。
+3. **启用代理:** 确保该域名的 Cloudflare DNS 设置中处于 **开启 (Proxied)** 代理状态。
 
 ---
 
-## 🔧 各设备使用指南
+## 🔧 配置指南：为何“浏览器配置”是最佳选择？
 
-### 🌐 浏览器（推荐 ⭐）
-*浏览器级 DoH 是稳定性的黄金标准。*  
-- **Chrome / Edge / Brave：** `Settings` → `Privacy & Security` → `Use secure DNS` → `With: Custom` → 粘贴你的端点 URL。  
-- **Firefox：** `Settings` → 搜索 `DNS` → `DNS over HTTPS` → 设置为 **Max Protection** → 自定义 → 粘贴你的链接。
+### 🛑 核心技术差异：DoH vs DoT
+现代操作系统（Windows 11 系统设置、安卓的“私有 DNS”、或 iOS 的内置描述文件）通常默认采用运行在 **853 端口** 上的 **DNS-over-TLS (DoT)**。
+*   由于此 Cloudflare Worker 运行在 **443 端口** (HTTPS)，大多数操作系统的原生设置项并不接受 `https://` 开头的完整链接，并会报错。
 
-### 🍎 Apple（iOS / iPadOS / macOS）
-- Apple 设置不支持直接粘贴 DoH 链接。  
-- 在 Safari 中打开你的 Worker 首页（例如：`https://dns.example.com`）。  
-- 进入 **Apple** 标签页并下载配置文件。  
-- 在 iPhone 上：**Settings → Profile Downloaded → Install**。
+### 🏆 最佳解决方案：浏览器内置设置（强烈推荐 ⭐）
+浏览器自带独立的 DoH 引擎，不仅完美支持 443 端口，其稳定性也远超系统全局配置方案。
 
-### 📱 Android
-- Android 的“Private DNS”仅接受 **DOT（端口 853）** 主机名。Cloudflare Workers **不原生支持 DOT**。  
-- **在 Android 上使用：** 必须使用中继应用，例如 **RethinkDNS** 或 **Intra**。选择 “Custom DOH” 并粘贴你的链接。
+#### 🌐 Google Chrome, Edge, Brave, Chromium 系列
+1. 进入“设置” -> “隐私和安全” -> “安全性”。
+2. 开启 **“使用安全 DNS”**。
+3. 选择 **“自定义 (Custom)”**。
+4. 粘贴上方属于您的 DoH 解析端点 URL。
 
-### 💻 Linux
-- 使用 `systemd-resolved`、`dnscrypt-proxy` 或浏览器级设置进行配置。
+#### 🦊 Mozilla Firefox
+1. 进入“设置” -> 搜索“DNS”。
+2. 找到 **“基于 HTTPS 的 DNS”**。
+3. 设置为 **“最高保护”**。
+4. 选择自定义解析商，并输入您的 DoH 地址。
 
-### ⚙ 代理客户端（Xray / v2rayNG）
-```json
-"dns": {
-  "servers": [
-    { "address": "https://your-custom-domain.com/dns-query", "skipFallback": true },
-    "1.1.1.1"
-  ],
-  "queryStrategy": "UseIPv4"
-}
-```
+#### 📱 移动端 (安卓与 iOS)
+- **Safari:** 苹果设备目前较难通过原生界面设置 Port 443 解析。建议安装 **火狐浏览器 (Firefox)** 或 **Brave**，并在这些浏览器的应用设置中进行配置。
+- **全局应用:** 如果需要在手机上全系统使用，建议安装 **Intra** 或 **RethinkDNS**。在 App 中选择“自定义 DoH 解析”并输入本页面的链接。
 
 ---
 
-## 🛠️ 技术规格
-- 端点：支持 POST 和 GET（Base64）格式。  
-- 逻辑：Worker 端竞速引擎，使用 AbortController 进行并发清理。  
-- 缓存：边缘缓存银行，支持 TTL 同步。  
-- 兼容性：针对浏览器级解析及 Xray/Sing-Box 核心客户端优化。  
-- 速率限制：对每个唯一 IP 自动保护，限制为每分钟 200 次请求。
+👤 开发人员与技术支持
+项目作者: TheGreatAzizi
 
----
-
-## 👤 作者与支持
-用 ❤️ 制作 —— TheGreatAzizi  
-| X（Twitter）：[@the_azzi](https://x.com/the_azzi)
+X (Twitter): https://x.com/the_azzi
