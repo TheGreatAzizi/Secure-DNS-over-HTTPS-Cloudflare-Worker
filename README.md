@@ -1,4 +1,4 @@
-# 🛡️ Secure DNS over HTTPS (DoH) Pro
+# 🛡️ Secure DNS over HTTPS (DoH)
 
 ### **The Most Reliable Parallel-Racing DNS Resolver on Cloudflare Workers**
 
