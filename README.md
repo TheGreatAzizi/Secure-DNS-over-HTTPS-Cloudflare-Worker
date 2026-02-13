@@ -1,9 +1,9 @@
-# 🛡️ Secure DNS over HTTPS (DoH)
+# 🛡️ Secure DNS over HTTPS (DoH) V2.1.0
 
 ### **The Most Reliable Parallel-Racing DNS Resolver on Cloudflare Workers**
 
 [![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare_Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com)
-[![Architecture](https://img.shields.io/badge/Architecture-Parallel_Racing_v4.5-emerald)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
+[![Architecture](https://img.shields.io/badge/Architecture-Parallel_Racing_v6.0-emerald)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 [![Security](https://img.shields.io/badge/Privacy-Zero_Logging-teal)](https://x.com/the_azzi)
 [![Interface](https://img.shields.io/badge/UI-English_Persian_Chinese-0ea5e9)](https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker)
 
@@ -11,7 +11,7 @@
 [![Farsi](https://img.shields.io/badge/Readme-Farsi-green)](./README-Fa.md)
 ![Repository Views](https://komarev.com/ghpvc/?username=TheGreatAzizi&repo=Secure-DNS-over-HTTPS-Cloudflare-Worker&color=red)
 
-A Cloudflare Worker that provides an **enterprise-grade custom DNS over HTTPS (DoH) endpoint** along with a modern, instructional dashboard. It allows you to encrypt your DNS queries, bypass DNS poisoning, and improve privacy using your own custom domain on the Cloudflare Edge network.
+A high-performance Cloudflare Worker providing a **custom DoH endpoint** with a built-in interactive dashboard. Built with a unique **8-Way Edge Racing Engine**, this service queries over 50 global DNS nodes simultaneously to return the fastest verified result.
 
 **Demo:** [dns.theazizi.ir](https://dns.theazizi.ir) | **Endpoint:** `https://dns.theazizi.ir/dns-query`
 
@@ -19,96 +19,70 @@ A Cloudflare Worker that provides an **enterprise-grade custom DNS over HTTPS (D
 
 ## ⚠ Important Notices (Especially for Users in Iran)
 
-### 1. Worker Subdomains are Blocked
-Cloudflare's default worker domains (`*.workers.dev`) are strictly filtered inside Iran. You **MUST connect the Worker to your own custom domain or subdomain** (e.g., `dns.yourdomain.com`) via **Workers → Settings → Domains & Routes**. Ensure the **Orange Cloud (Proxied)** is enabled.
+### 1. Worker Subdomains are Filtered
+The default Cloudflare domain (`*.workers.dev`) is filtered inside Iran. You **MUST** attach the Worker to a **Custom Domain** (e.g., `dns.yourdomain.com`). In the Cloudflare DNS dashboard, ensure the **Orange Cloud (Proxied)** is active.
 
-### 2. DNS Only — Your IP Remains Public
-This project **ONLY encrypts DNS queries**. Your public IP address **DOES NOT change**. 
-- If you use this DNS to access platforms like **Twitter (X)**, the service may still detect your real location/IP.
-- Profile activity on social media may still show you are connected from your home country (Iran).
+### 2. No IP Masking (DNS Only)
+This tool **only encrypts your DNS lookups**. Your Public IP remains the same. External platforms (like Twitter/X) will still detect your Iranian location. For full IP masking, pair this with a proxy or VPN.
 
-### 3. Bypass Scope
-While this Worker bypasses **DNS-level filtering** (which accounts for a large percentage of censorship), it **MAY NOT** bypass:
-- **IP-level blocking** (When an IP is directly unreachable).
-- **SNI Filtering** (Block based on the website name in the TLS handshake).
-- **Deep Packet Inspection (DPI)**.
+### 3. DNS-Level Bypassing Only
+This service effectively bypasses DNS Poisoning (G-FW). It cannot bypass IP-level blocking, SNI filtering, or Deep Packet Inspection (DPI) on its own.
 
 ---
 
-## ⚡ What do we have inside this version?
+## 🚀 Advanced Architecture: v6.0 Racing Engine
 
-- **🚀 8-Track Parallel Racing:** For every DNS query you send, the worker contacts **8 premium global DNS providers** (Google, Cloudflare, Quad9, AdGuard, Mullvad, etc.) simultaneously. 
-- **🏆 Fastest Response Wins:** The worker returns the very first verified response it receives to you, effectively eliminating the lag of any single slow or congested provider.
-- **🧠 Autonomous Health Scoring:** If a provider is censored or slow, the engine drops its score automatically and promotes healthy nodes in real-time.
-- **💾 Global Edge Cache:** Common domains (like Google, Spotify, or CDN assets) are cached in the Cloudflare memory bank to provide **sub-10ms** response times.
+Standard DoH can sometimes be slow due to single-provider congestion. Our Pro engine uses a superior approach:
+- **8-Track Concurrency:** For every query, the worker sends requests to 8 of the best healthy global providers at the exact same time.
+- **Winner Takes All:** The fastest response is returned to the user, ensuring the absolute lowest latency (sub-30ms edge resolution).
+- **Self-Healing Scores:** Providers are continuously scored. If a node starts failing or lagging due to ISP interference, its weight is automatically lowered.
 
 ---
 
-## 📋 What This Project Does
+## 📋 Features
 
-- Provides a highly secure `/dns-query` endpoint.
-- Protects against **ISP-level monitoring** and **DNS hijacking**.
-- Features a **Multilingual UI** (English, Persian, Chinese) for global users.
-- Includes a **Native Apple Profile Generator** (iOS/macOS `.mobileconfig`).
-- Employs **Decoy Requests** and randomized headers to evade Traffic Fingerprinting.
+- **✅ Edge Caching:** Frequent records (like Google/Spotify) are stored in shared RAM for instant results.
+- **✅ Multilingual Support:** Professional instructional UI available in English, Persian (FA), and Chinese (ZH).
+- **✅ Rate-Limiting:** Automated 250 req/min per IP to prevent flood-based instability.
+- **✅ Stealth Mode:** Since the query travels through **Port 443 (HTTPS)**, it looks like regular encrypted web traffic.
 
 ---
 
 ## 📖 How to Deploy
 
-### 1. Create the Worker
-- Log in to your Cloudflare Dashboard.
-- Go to **Workers & Pages** -> **Create Service**.
-- Paste the [worker.js](./worker.js) code and click **Deploy**.
-
-### 2. Connect a Custom Domain (Required for Restricted Regions)
-- Inside the Worker settings, go to **Settings → Domains & Routes**.
-- Add a custom domain or subdomain (e.g., `doh.yourdomain.com`).
-- Ensure DNS is proxied (**Orange Cloud enabled**).
+1.  **Deploy Worker:** Create a new Worker on Cloudflare and paste the `worker.js` code.
+2.  **Bind Domain:** Under `Settings -> Domains & Routes`, add your custom subdomain.
+3.  **Proxy:** Verify the subdomain in Cloudflare DNS settings has the orange proxy cloud enabled.
 
 ---
 
-## 🔧 Implementation Guide per Device
+## 🔧 Setup Guide: Why Browser-Level is Best
 
-### 🌐 Web Browsers (Recommended ⭐)
-*Browser-level DoH is the gold standard for stability.*
-- **Chrome / Edge / Brave:** `Settings` -> `Privacy & Security` -> `Use secure DNS` -> `With: Custom` -> Paste your endpoint URL.
-- **Firefox:** `Settings` -> Search `DNS` -> `DNS over HTTPS` -> Set to **Max Protection** -> Custom -> Paste your link.
+### 🛑 THE LIMITATION: Native System Settings
+Modern Operating Systems (Windows 11 settings, Android "Private DNS", or iOS Profiles) natively prioritize **DNS-over-TLS (DoT)** running on **Port 853**. 
+*   Because Cloudflare Workers run on **Port 443**, system settings often reject an `https://` link as an "Invalid Hostname." 
+*   **Result:** You cannot natively paste this URL into the Windows or Android native settings directly without receiving errors.
 
-### 🍎 Apple (iOS / iPadOS / macOS)
-- Apple settings don't support pasting DoH links directly.
-- Open your Worker's home page (e.g., `https://dns.example.com`) in Safari.
-- Go to the **Apple** tab and download the configuration profile.
-- On iPhone: **Settings -> Profile Downloaded -> Install**.
+### 🏆 THE SOLUTION: Browser Integration (Recommended ⭐)
+Web Browsers have independent DoH engines that support Port 443 perfectly. Setting this up at the browser level provides the highest stealth and reliability.
 
-### 📱 Android
-- Android "Private DNS" only accepts **DOT (Port 853)** hostnames. Cloudflare Workers do **NOT** support DOT natively.
-- **To use on Android:** You must use a relay app like **RethinkDNS** or **Intra**. Choose "Custom DOH" and paste your link.
+#### 🌐 Google Chrome / Chromium / Edge / Brave
+1.  Go to `Settings` -> `Privacy & Security` -> `Security`.
+2.  Enable **"Use Secure DNS"**.
+3.  Choose **"Custom"** and paste your Neptune DoH URL.
 
-### 💻 Linux
-- Configure using `systemd-resolved`, `dnscrypt-proxy`, or the browser-level settings.
+#### 🦊 Mozilla Firefox
+1.  Go to `Settings` -> `Privacy & Security`.
+2.  Under `DNS over HTTPS`, select **Max Protection**.
+3.  Set "Choose Provider" to **Custom** and paste your URL.
 
-### ⚙ Proxy Clients (Xray / v2rayNG)
-```json
-"dns": {
-  "servers": [
-    { "address": "https://your-custom-domain.com/dns-query", "skipFallback": true },
-    "1.1.1.1"
-  ],
-  "queryStrategy": "UseIPv4"
-}
-```
----
-
-## 🛠️ Technical Specifications
-- Endpoint: Supports POST and GET (Base64) formats.
-- Logic: Worker-side Race Engine with AbortController for concurrency cleanup.
-- Cache: Edge-Cache Bank with TTL synchronization.
-- Compatibility: Optimized for browser-level resolution and Xray/Sing-Box core clients.
-- Rate Limit: Automated 200 requests/minute protection per unique IP.
+#### 📱 Mobile (Android / iOS)
+- **Safari:** Safari prioritizes native DOT. We recommend using the **Firefox Mobile** or **Brave** browser on your phone for full DOH support.
+- **Apps:** For system-wide use on Android, we suggest the **Intra** or **RethinkDNS** app. Use their "Custom DoH" field to add your link.
 
 ---
 
-## 👤 Author & Support
-Made with ❤️ by TheGreatAzizi
-| X (Twitter): [@the_azzi](https://x.com/the_azzi)
+👤 Credits & Links
+Developer: TheGreatAzizi
+
+Twitter (X): [@the_azzi](https://x.com/the_azzi)
