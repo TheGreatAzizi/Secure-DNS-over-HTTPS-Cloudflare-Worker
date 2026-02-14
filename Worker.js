@@ -1,6 +1,5 @@
 /**
- * PROJECT: SECURE DNS OVER HTTPS (PRO)
- * VERSION: 6.0 - Browser & Documentation Optimized
+ * VERSION: 2.1 
  * GITHUB: https://github.com/TheGreatAzizi/Secure-DNS-over-HTTPS-Cloudflare-Worker
  */
 
@@ -199,7 +198,7 @@ export default {
 
         <footer class="mt-32 pb-20 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center opacity-60 gap-8">
             <div>
-                <span class="text-[10px] font-black tracking-widest text-cyan-600 block mb-1">DOH CORE: NEPTUNE-V6</span>
+                <span class="text-[10px] font-black tracking-widest text-cyan-600 block mb-1">DOH CORE: NEPTUNE-V2</span>
                 <p class="text-[9px] uppercase">Built with Edge-Computing Infrastructure</p>
             </div>
             <div class="flex gap-10 font-bold text-[10px] uppercase">
@@ -234,7 +233,7 @@ export default {
                 curL: 'فارسی (FA)'
             },
             zh: {
-                main: 'Secure DoH 安全加密中心', sub: '基于边缘节点全球竞速协议 v6.0',
+                main: 'Secure DoH 安全加密中心', sub: '基于边缘节点全球竞速协议 v2.1',
                 urlL: 'DoH 配置终端', cpT: '复制配置地址', tabC: 'Chromium 引擎', tabF: 'Firefox 火狐', tabM: '安卓与 iOS',
                 cH: 'Chromium 浏览器设置', cL: '<li>1. 进入浏览器“设置”，搜索“安全 DNS”。</li><li>2. 将服务提供商设置为“自定义 (Custom)”。</li><li>3. 粘贴本页面的 Neptune 链接，然后重启浏览器生效。</li>',
                 fH: '火狐浏览器配置指南', fL: '<li>1. 在火狐“设置”中搜索 DNS 选项。</li><li>2. 在 HTTPS 模式下勾选“增强模式”并选择自定义提供商。</li><li>3. 输入 DoH 服务器地址并确认保存。</li>',
