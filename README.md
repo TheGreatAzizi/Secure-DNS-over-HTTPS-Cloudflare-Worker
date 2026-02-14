@@ -30,7 +30,7 @@ This service effectively bypasses DNS Poisoning (G-FW). It cannot bypass IP-leve
 
 ---
 
-## 🚀 Advanced Architecture: v6.0 Racing Engine
+## 🚀 Advanced Architecture: v2.1 Racing Engine
 
 Standard DoH can sometimes be slow due to single-provider congestion. Our Pro engine uses a superior approach:
 - **8-Track Concurrency:** For every query, the worker sends requests to 8 of the best healthy global providers at the exact same time.
