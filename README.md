@@ -1,5 +1,5 @@
 # 🛡️ Secure DNS over HTTPS (DoH) V2.2.0
-
+[![DevSponsors](https://devsponsors.github.io/assets/badges/sponsor.svg)](https://devsponsors.github.io)
 ### **A Cloudflare Worker DoH Resolver with Full-Pool Mode, Resolver Profiles, Safer Validation, and Parallel Racing**
 
 [![Cloudflare Workers](https://img.shields.io/badge/Platform-Cloudflare_Workers-F38020?logo=cloudflare)](https://workers.cloudflare.com)
